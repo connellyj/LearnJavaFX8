@@ -35,15 +35,15 @@ public class WorkerStateUI extends GridPane {
         exception.setPrefRowCount(3);
         this.setHgap(5);
         this.setVgap(5);
-        addRow(0, new Label("Title: ", title));
-        addRow(1, new Label("Message: ", message));
-        addRow(2, new Label("Running: ", running));
-        addRow(3, new Label("State: ", state));
-        addRow(4, new Label("Total Work: ", totalWork));
-        addRow(5, new Label("Work Done: ", workDone));
-        addRow(6, new Label("Progress: ", new HBox(2, progressBar, progress)));
-        addRow(7, new Label("Value: ", value));
-        addRow(8, new Label("Exception: ", exception));
+        addRow(0, new Label("Title:"), title);
+        addRow(1, new Label("Message:"), message);
+        addRow(2, new Label("Running:"), running);
+        addRow(3, new Label("State:"), state);
+        addRow(4, new Label("Total Work:"), totalWork);
+        addRow(5, new Label("Work Done:"), workDone);
+        addRow(6, new Label("Progress:"), new HBox(2, progressBar, progress));
+        addRow(7, new Label("Value:"), value);
+        addRow(8, new Label("Exception:"), exception);
     }
 
     public void bindtoWorker(final Worker<ObservableList<Long>> worker) {
@@ -53,7 +53,7 @@ public class WorkerStateUI extends GridPane {
         state.textProperty().bind(worker.stateProperty().asString());
         totalWork.textProperty().bind(new When(worker.totalWorkProperty().isEqualTo(-1))
             .then("Unknown")
-            .otherwise(worker.totalWorkProperty().toString()));
+            .otherwise(worker.totalWorkProperty().asString()));
         workDone.textProperty().bind(new When(worker.progressProperty().isEqualTo(-1))
             .then("Unknown")
             .otherwise(worker.progressProperty().multiply(100.0).asString("%.2f%%")));
